@@ -1,0 +1,14 @@
+-----
+Algorithm of the program rfa_dist
+-----
+Define the Jaccard measure of two branches as follows. Let A and B are sets of leaves from two sides of the first branch, and C and D are the same sets for the second branch. Let J(X, Y) be Jaccard measure of two sets, i.e, the volume of their intersection divided by the volume of their union (so J(X, Y) = 1 means X = Y and J(X, Y) = 0 means disjoint sets). The Jaccard measure of two branches (splits) (A|B) and (C|D) is defined as follows:
+
+J((A|B), (C|D)) = max(min(J(A,C), J(B,D)), min(J(A,D), J(B,C))
+
+The reason for this definition is as follows. We would like to obtain J close to one, if two branches are almost the same. In this case either A is close to C and B is close to D, or A is close to D and B is close to C. As the measure of simultaneous similarity of two pairs of sets we chose the minimum of their Jaccard measures. This seems preferable in comparison with, say, the average Jaccard measure because sides of branches can be of very different volumes. Now from two alternative comparisons of sides of two branches we choose one that provides a greater value.
+
+Given two trees, T1 and T2, the program rfa_dist compares all branches (aka splits) of T1 with every branch of T2. For each branch i of T1 it generates a set of branches of T2 having maximum possible Jaccard measure with i, let us denote this set by M1(i). The same is done for each branch j of T2, obtaining the set M2(j). Now the program finds a set of best bidirectional hits (BBH), each consisting of one branch i from T1 and one branch j from T2 such that i belongs to M2(j) and j belongs to M1(i), and each i and each j belong to not more than one BBH. Let us denote the sum of Jaccard measures over all non-trivial BBH by S (trivial are BBH between trivial branches separating one leaf from all other). Now the RFA distance between T1 and T2 is defined as:
+
+RFA(T1, T2) = 1 - 2*S/(n1 + n2)
+
+where n1 and n2 are numbers of non-trivial branches in two trees.
