@@ -15,5 +15,7 @@ or
 `*_dist twotrees.tre`
 and provide their results to stdout. In the first case (two paramters in the command), first trees from both files are compared. In the second case, first two trees from the input files are regarded as input.
 
-To compile on a Unix-like platform, put the Makefile and the src directory somewhere on your computer and run `make`. 
+All programs require the set of leaves of one tree to be a subset of the set of leaves of another tree. All implemented distances are defined only for trees with equal sets of leaves. If the leaf set of one tree is a proper subset of the leaf set of another tree, the bigger tree is restricted to the smaller leaf set and the distance is computed between the obtained trees with equalleaf sets. If none of two leaf sets is a subset of another one, a senseless large value is output (it is 1000000 for most programs).
+
+To compile the package on a Unix-like platform, put the Makefile and the src directory somewhere on your computer and run `make`. 
 For Windows either use Cygwin or unzip the archive TreeDist_exe.zip.
