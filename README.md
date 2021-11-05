@@ -10,7 +10,7 @@ TreeDist consists of five programs:
 
 Input of all programs is two trees in Newick format. Trees may be in separate files or in one file.
 All five programs are run from the command line:
-*_dist tree1.tre tree2.tre
+`*_dist tree1.tre tree2.tre`
 or
-*_dist twotrees.tre
-and give their results to stdout.
+`*_dist twotrees.tre`
+and provide their results to stdout. In the first case (two paramters in the command), first trees from both files are compared. In the second case, first two trees from the input files are regarded as input.
