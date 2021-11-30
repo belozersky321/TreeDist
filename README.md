@@ -19,3 +19,5 @@ All programs require the set of leaves of one tree to be a subset of the set of 
 
 To compile the package on a Unix-like platform, put the Makefile and the src directory somewhere on your computer and run `make`. 
 For Windows either use Cygwin or unzip the archive TreeDist_exe.zip.
+
+The author is supported by the Russian Science Foundation, grant no. 21-14-00135
