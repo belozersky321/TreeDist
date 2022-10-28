@@ -6,6 +6,7 @@ TreeDist consists of five programs:
  * `l2_dis`t calculates L2-distance (or Path Difference Metric, Penny et al., 1982);
  * `quartet_dist` is a naive and slow implementation of Estabrook quartet distance (Estabrook, 1985);
  * `rf_dist` calculates normalized Robinson-Foulds distance, i.e., the fraction of different splits of two trees;
+ * `rf_dist_n` is a variant of `rf_dist` for comparison of a resolved tree with unresolved one;
  * `rfa_dist` calculates a modified version of Robinson-Foulds distance, which is 1 minus average Jaccard measure for pairs of mutually best corresponding splits of two trees (see details in file rfa-algorithm.txt of this repository).
 
 Input of all programs is two trees in Newick format. Trees may be in separate files or in one file.
