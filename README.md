@@ -1,7 +1,7 @@
 # TreeDist
 TreeDist is a C package for calculating distances between phylogenetic trees.
 
-TreeDist consists of five programs:
+TreeDist consists of six programs:
  * `l1_dist` calculates L1-distance (or Node distance, Williams & Clifford, 1971);
  * `l2_dis`t calculates L2-distance (or Path Difference Metric, Penny et al., 1982);
  * `quartet_dist` is a naive and slow implementation of Estabrook quartet distance (Estabrook, 1985);
