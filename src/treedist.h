@@ -1,31 +1,30 @@
-/*  treedist.h is a header file for TreeDist package.
-    Author: Sergei Spirin, Belozersky Institute of Moscow State University, sas@belozersky.msu.ru
-
-    Copyright 2021 Sergei Spirin 
-
-    This file is part of TreeDist.
-
-    TreeDist is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    TreeDist is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with TreeDist (a file named "COPYING.txt"). 
-    If not, see <https://www.gnu.org/licenses/>.
-*/
-
 #ifndef _HEADER_H_
 #define _HEADER_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+/*  treedist.h is a header file for Treedist package.
+    Author: Sergei Spirin, Belozersky Institute of Moscow State University, sas@belozersky.msu.ru
+
+    Copyright 2021 Sergei Spirin 
+
+    This file is part of Treedist.
+
+    Treedist is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Treedist is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Treedist (a file named "COPYING.txt"). 
+    If not, see <https://www.gnu.org/licenses/>.
+*/
 #include <math.h>
 #include <ctype.h>
 
@@ -49,6 +48,7 @@ unsigned combdistance(struct tree intree, unsigned leaf1, unsigned leaf2);
 long treedist2 (struct tree intree1, struct tree intree2, char p);
 
 unsigned branchdist(struct tree tree1, struct tree tree2);
+unsigned branchdist_n(struct tree tree1, struct tree tree2);
 
 float aligndist(struct tree tree1, struct tree tree2);
 float ffminf(float a, float b);

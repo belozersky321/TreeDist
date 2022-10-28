@@ -1,22 +1,22 @@
-/*  treedist.c is a library of subroutines for TreeDist package.
+/*  treedist.c is a library of subroutines for Treedist package.
     Author: Sergei Spirin, Belozersky Institute of Moscow State University, sas@belozersky.msu.ru
 
     Copyright 2021 Sergei Spirin 
 
-    This file is part of TreeDist.
+    This file is part of Treedist.
 
-    TreeDist is free software: you can redistribute it and/or modify
+    Treedist is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    TreeDist is distributed in the hope that it will be useful,
+    Treedist is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with TreeDist (a file named "COPYING.txt"). 
+    along with Treedist (a file named "COPYING.txt"). 
     If not, see <https://www.gnu.org/licenses/>.
 */
 
@@ -433,6 +433,66 @@ unsigned branchdist (struct tree tree1, struct tree tree2) {
   return result;
 } /* branchdist */
 
+/****************************************************************
+*  branchdist_n returns the number of branches (splits) 
+*  in the tree with less number of branches that are not
+*  presented in the tree with more branches
+*****************************************************************/
+unsigned branchdist_n (struct tree tree1, struct tree tree2) {
+  unsigned result;
+  unsigned common = 0;
+  unsigned *corresp;
+  unsigned i, j, k, n;
+  char flag, iflag;
+
+  if ( tree1.leavesnum == tree2.leavesnum ) {
+    corresp = (unsigned*)malloc(sizeof(unsigned) * tree1.leavesnum);
+    for ( i = 0; i < tree1.leavesnum; i++ ) {
+      flag = 1;
+      for ( j = 0; j < tree1.leavesnum && flag; j++ ) {
+        if ( strcmp(tree1.leaf[i], tree2.leaf[j]) == 0 ) {
+          flag = 0;
+          corresp[i] = j;
+        }
+      }
+      if ( flag ) {
+        fprintf(stderr, "The leaf %s has no correspondence in the tree 2\n", 
+                tree1.leaf[i]);
+        return tree1.branchnum + tree2.branchnum - tree1.leavesnum - tree2.leavesnum;
+      }
+    }
+ 
+    for ( i = 0; i < tree1.branchnum; i++ ) {
+      iflag = 0;
+      for ( j = 0; j < tree2.branchnum && (!iflag); j++ ) {
+        flag = 0;
+        for ( k = 0; k < tree1.leavesnum && flag == 0; k++ ) {
+          if ( tree1.branch[i][k] != tree2.branch[j][corresp[k]] ) {
+            flag = 1; /* branches are either different or of opposite orientation */
+          }
+        }
+        if (flag == 1) { /* equal branches mean opposite orientation = completely different values of .branch[i][k] */
+          for ( k = 0; k < tree1.leavesnum && flag == 1; k++ ) {
+            if ( tree1.branch[i][k] == tree2.branch[j][corresp[k]] ) {
+              flag = 2; /* branches are definetely different */
+            }
+          }
+        }
+        if ( flag < 2 ) { /* i and j are equal branches */
+          common++;
+          iflag = 1;
+        }
+      }
+    }
+    free(corresp);
+    if(tree1.branchnum < tree2.branchnum) n = tree1.branchnum; else n = tree2.branchnum;
+    result = n - common; 
+  } /* if */
+  else result = tree1.branchnum + tree2.branchnum - tree1.leavesnum - tree2.leavesnum;
+
+  return result;
+} /* branchdist_n */
+
 /************************************************************************
 *  aligndist: find best bidirectional hits between branches of two trees,
 *  return the sum of Jaccard measures for all BBH
@@ -463,7 +523,7 @@ float aligndist (struct tree tree1, struct tree tree2) {
       }
       if ( flag ) {
         fprintf(stderr, "The leaf \"%s\" of tree #1 has no correspondence in the tree #2\n", tree1.leaf[i]);
-        return result;
+        return 1.0;
       }
     }
 
