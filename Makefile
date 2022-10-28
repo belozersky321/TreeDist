@@ -3,10 +3,10 @@ LINK_DIR = obj
 
 .PHONY: all clean
 
-all : rf_dist rfa_dist l1_dist l2_dist quartet_dist
+all : rf_dist rf_dist_n rfa_dist l1_dist l2_dist quartet_dist
 
 clean :
-	rm -rf $(LINK_DIR) rf_dist rfa_dist l1_dist l2_dist quartet_dist
+	rm -rf $(LINK_DIR) rf_dist rf_dist_n rfa_dist l1_dist l2_dist quartet_dist
 
 $(SOURCE_DIR) :
 	if ! [ -d $(SOURCE_DIR) ]; then echo "Source dir doesn't exist"; exit 1; fi
@@ -19,6 +19,9 @@ treedist.o : $(SOURCE_DIR) $(LINK_DIR) $(SOURCE_DIR)/treedist.c
 
 rf_dist.o : $(SOURCE_DIR) $(LINK_DIR) $(SOURCE_DIR)/rf_dist.c
 	gcc -O2 -c $(SOURCE_DIR)/rf_dist.c -o $(LINK_DIR)/rf_dist.o
+
+rf_dist_n.o : $(SOURCE_DIR) $(LINK_DIR) $(SOURCE_DIR)/rf_dist_n.c
+	gcc -O2 -c $(SOURCE_DIR)/rf_dist_n.c -o $(LINK_DIR)/rf_dist_n.o
 
 rfa_dist.o : $(SOURCE_DIR) $(LINK_DIR) $(SOURCE_DIR)/rfa_dist.c
 	gcc -O2 -c $(SOURCE_DIR)/rfa_dist.c -o $(LINK_DIR)/rfa_dist.o
@@ -34,6 +37,9 @@ quartet_dist.o : $(SOURCE_DIR) $(LINK_DIR) $(SOURCE_DIR)/quartet_dist.c
 
 rf_dist : rf_dist.o treedist.o
 	gcc $(LINK_DIR)/rf_dist.o $(LINK_DIR)/treedist.o -lm -o rf_dist
+
+rf_dist_n : rf_dist_n.o treedist.o
+	gcc $(LINK_DIR)/rf_dist_n.o $(LINK_DIR)/treedist.o -lm -o rf_dist_n
  
 rfa_dist : rfa_dist.o treedist.o
 	gcc $(LINK_DIR)/rfa_dist.o $(LINK_DIR)/treedist.o -lm -o rfa_dist
